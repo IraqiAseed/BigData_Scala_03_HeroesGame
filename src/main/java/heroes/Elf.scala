@@ -8,12 +8,14 @@ case class Elf() extends Character {
 
   override def kick(enemy: Character): Unit = {
     if (power > enemy.power) {
-      enemy.kill()
       println(s"[power: $power hp $hitPoints] Elf kicks ${enemy.getClass.getSimpleName} and kill him")
+      enemy.kill()
+
     }
     else {
-      enemy.decreasePower(1)
       println(s"[power: $power hp $hitPoints] Elf kicks ${enemy.getClass.getSimpleName} the damage is 1 hp")
+      enemy.decreasePower(1)
+
     }
 
 

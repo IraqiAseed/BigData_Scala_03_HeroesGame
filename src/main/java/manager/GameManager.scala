@@ -6,8 +6,11 @@ import factory.CharacterFactory
 object GameManager {
 
   def fightWithRandomHeroes(): Unit = {
-    val h1 = CharacterFactory.createCharacter()
-    val h2 = CharacterFactory.createCharacter()
+    //val h1 = CharacterFactory.createCharacter() //for solution one
+    //val h2 = CharacterFactory.createCharacter() //for solution one
+    val h1 = CharacterFactory.createHero().apply()
+    val h2 = CharacterFactory.createHero().apply()
+
 
     if (h1.isInstanceOf[Hobbit]) {
       if (h2.isInstanceOf[Hobbit]) {

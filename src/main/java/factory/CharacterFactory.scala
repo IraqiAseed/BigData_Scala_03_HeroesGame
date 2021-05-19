@@ -14,7 +14,7 @@ object CharacterFactory {
   def initCache(): Unit = {
     heroesClasses = scanner.getSubTypesOf(classOf[Character]).asScala.toList
     println(heroesClasses)
-    createHeroesListFactory()
+    createHeroesFactory()
   }
 
   //solution one - normal random on list of classes
@@ -31,7 +31,7 @@ object CharacterFactory {
     () => character.getDeclaredConstructor().newInstance()
   }
 
-  def createHeroesListFactory(): List[() => Character] = {
+  def createHeroesFactory(): List[() => Character] = {
     heroesFactory = heroesClasses.map(hero => f(hero))
     heroesFactory
   }

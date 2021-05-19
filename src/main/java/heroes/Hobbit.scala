@@ -1,4 +1,4 @@
-package Heroes
+package heroes
 import factory.Character
 
 case class Hobbit() extends Character {

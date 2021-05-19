@@ -1,6 +1,6 @@
-package Manager
+package manager
 
-import Heroes.Hobbit
+import heroes.Hobbit
 import factory.CharacterFactory
 
 object GameManager {

@@ -8,18 +8,18 @@ import scala.util.Random
 object CharacterFactory {
 
   private val scanner = new Reflections("")
-  var heroes: List[Class[_ <: Character]] = Nil //list of classes
-  var heroesInstanceClasses: List[() => Character] = Nil // list that return new instance of classes
+  var heroesClasses: List[Class[_ <: Character]] = Nil //list of classes
+  var heroesFactory: List[() => Character] = Nil // list that return new instance of classes
 
   def initCache(): Unit = {
-    heroes = scanner.getSubTypesOf(classOf[Character]).asScala.toList
-    println(heroes)
-    createCharacterInstances()
+    heroesClasses = scanner.getSubTypesOf(classOf[Character]).asScala.toList
+    println(heroesClasses)
+    createHeroesListFactory()
   }
 
   //solution one - normal random on list of classes
   def createCharacter(): Character = {
-    val randomHero: Class[_ <: Character] = heroes(Random.between(0, heroes.length))
+    val randomHero: Class[_ <: Character] = heroesClasses(Random.between(0, heroesClasses.length))
     val randomHeroInstance: Character = randomHero.getDeclaredConstructor().newInstance()
     val heroName: String = randomHeroInstance.getClass.getSimpleName
     println(s"$heroName [power ${randomHeroInstance.power} ,hit points ${randomHeroInstance.hitPoints}]")
@@ -31,13 +31,13 @@ object CharacterFactory {
     () => character.getDeclaredConstructor().newInstance()
   }
 
-  def createCharacterInstances(): List[() => Character] = {
-    heroesInstanceClasses = heroes.map(hero => f(hero))
-    heroesInstanceClasses
+  def createHeroesListFactory(): List[() => Character] = {
+    heroesFactory = heroesClasses.map(hero => f(hero))
+    heroesFactory
   }
 
   def createHero(): () => Character = {
-    val hero = heroesInstanceClasses(Random.between(0, heroes.length))
+    val hero = heroesFactory(Random.between(0, heroesClasses.length))
     println(s"${hero.apply().getClass.getSimpleName} [power ${hero.apply().power} ,hit points ${hero.apply().hitPoints}]")
     hero
   }
